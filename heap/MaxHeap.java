@@ -2,75 +2,63 @@ import java.util.ArrayList;
 
 public class MaxHeap extends Heap {
 
-    MaxHeap(ArrayList<Integer> a) {
-        super();
-        this.store = a;
+    MaxHeap(Integer[] a, int heapSize) {
+        super(a, heapSize);
     }
 
-    public static void maxHeapify(ArrayList<Integer> a, int index) {
+    public void buildMaxHeap(Integer[] a) {
+        this.heapSize = a.length;
+        for(int i = a.length / 2; i > 0; i--) {
+            MaxHeap.maxHeapify(a, i, a.length);
+        }
+    }
 
+    public static void buildMaxHeap(Integer[] a, int heapSize) {
+        for(int i = a.length / 2; i > 0; i--) {
+            MaxHeap.maxHeapify(a, i, heapSize);
+        }
+    }
+
+    public static void maxHeapify(Integer[] a, int index, int heapSize) {
         int l = left(index);
         int r = right(index);
         int largest = index;
         
-        if (l < a.size() && a.get(l - 1) > a.get(index - 1)) {
+        if (l <= heapSize && a[l - 1] > a[index - 1]) {
             largest = l;
         }
-
-        if (r < a.size() && a.get(r - 1) > a.get(largest - 1)) {
+        if (r <= heapSize && a[r - 1] > a[largest - 1]) {
             largest = r;
         }
         if (largest != index) {
-            int aux = a.get(index - 1);
-            a.set(index - 1, a.get(largest - 1));
-            a.set(largest - 1, aux);
-            maxHeapify(a, largest);
+            int aux = a[index - 1];
+            a[index - 1] = a[largest - 1];
+            a[largest - 1] = aux;
+            MaxHeap.maxHeapify(a, largest, heapSize);
         }
     }
-
-    public static void maxHeapifyRecurrent(ArrayList<Integer> a, int index) {
+    
+    public void maxHeapifyRecurrent(Integer[] a, int index, int heapSize) {
         while (true) {
             int l = left(index);
             int r = right(index);
             int largest = index;
             
-            if (l <= a.size() && a.get(l - 1) > a.get(index - 1)) {
+            if (l <= heapSize && a[l - 1] > a[index - 1]) {
                 largest = l;
             }
     
-            if (r <= a.size() && a.get(r - 1) > a.get(largest - 1)) {
+            if (r <= heapSize && a[r - 1] > a[largest - 1]) {
                 largest = r;
             }
             if (largest != index) {
-                int aux = a.get(index - 1);
-                a.set(index - 1, a.get(largest - 1));
-                a.set(largest - 1, aux);
+                int aux = a[index - 1];
+                a[index - 1] = a[largest - 1];
+                a[largest - 1] = aux;
                 index = largest;
             } else {
                 break;
             }
         }
     }
-
-    /*
-
-    public void minHeapify(ArrayList<Integer> a, int index) {
-        int l = left(index);
-        int r = right(index);
-        int lowest = index;
-        
-        if (l <= a.size() && a.get(l) < a.get(lowest)) {
-            lowest = l;
-        }
-
-        if (r <= a.size() && a.get(r) < a.get(lowest)) {
-            lowest = r;
-        }
-        if (lowest != index) {
-            int aux = a.get(index);
-            a.set(index, a.get(lowest));
-            a.set(lowest, aux);
-            minHeapify(a, lowest);
-        }
-    }*/
 }

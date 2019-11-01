@@ -60,22 +60,6 @@ public class Main {
 		window.showTree(tree);
 		window.setVisible(true);*/
 	public static void main(String[] args) {
-		startMaxHeapExample();
-	}
-
-	static void startMaxHeapExample() {
-		Integer[] args = new Integer[] {
-			16,4,10,14,7,9,3,2,8,1
-		};
-		ArrayList<Integer> store = new ArrayList<Integer>();
-		for (int arg : args) {
-			store.add(arg);
-		}
-
-		MaxHeap heap = new MaxHeap(store);
-		println(heap.store);
-		MaxHeap.maxHeapifyRecurrent(heap.store, 2);
-		println(heap.store);
-
+		(new HeapSortExercise()).run();
 	}
 }
